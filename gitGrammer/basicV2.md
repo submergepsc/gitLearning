@@ -4,7 +4,11 @@
 
 ```shell
 git init 
-git clone <repository_url>
+git clone <repository_url>#clone使用的是url，fetch，pull和merge是远程仓库名
+#gitclone会自动创建origin关联（但是ssh没成功）
+##注意如果在/codex/大目录下面clone了一个gitLearning仓库，那么在进入gitLearning仓库之后会自动生成一个origin的远程仓库别名
+git clone -b main git@github.com:submergepsc/JuniorPT.git
+
 cd <directory>
 git add.
 git add <file_name>
@@ -19,8 +23,9 @@ git reset HEAD <file_name>#暂存区修改
 
 ##本地分支操作
 git branch -a/-r #所有，本地，远程
-git checkout <branch_name>
+git branch <branch_name>#创建分支
 git checkout -b <branch_name>#创建并修改
+git branch -m master main#改名master->main
 git branch -d/-D <branch_name>#删除
 
 
@@ -29,14 +34,19 @@ git branch -d/-D <branch_name>#删除
 git remote -v
 git remote 
 git remote remove <remote_name>#删除远程仓库
+#首先创建本地分支git checkout -b feature
+git push origin feature#创建远程分支feature
 git push <remote_name> -delete <branch_name> #delete remote branch
 git remote set-url  <remote_name> <new_repository_url>
+
+
+
 
 ##远程操作
 git remote add <remote_name> <repository_url>
 git pull <remote_name> <branch_name>#拉取并合并
 git push <remote_name> <branch_name>
-git fetch <remote_name> <branch_name> #拉取更新，但不合并
+git fetch <remote_name> <branch_name> #拉取更新，但不合并，但是必须要远程有新的更新才会拉取，所以还是需要clone下来
 git merge <remote_name>/<branch_name>#手动合并
 
 
@@ -68,7 +78,7 @@ enter passphrase(empty for no pw):
 
 id_rsa私钥
 id_rsa.pub:公钥
-cat ~/.ssh/id_rsa.pub
+cat C:/Usres/15056/.ssh/id_rsa.pub
 #在github->settings->newssh->add
 ssh -T git@github.com #检测，第一次链接，输入yes
   ```
@@ -99,3 +109,24 @@ ssh -T git@github.com #检测，第一次链接，输入yes
    ```
 
    
+
+
+
+### tips
+
+`git clone`不仅会下载远程项目，还会自动创建关联
+
+```shell
+git clone <repository_url>
+```
+
+
+
+而`git init`+`git pull`并不会创建关联
+
+```shell
+git init
+git remote add origin https://github.com/username/repository.git
+git pull origin main 
+```
+
