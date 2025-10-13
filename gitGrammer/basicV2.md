@@ -17,7 +17,7 @@ git checkout -- <file_name>#撤销工作区的修改
 git reset HEAD <file_name>#暂存区修改
 
 
-##分支操作
+##本地分支操作
 git branch -a/-r #所有，本地，远程
 git checkout <branch_name>
 git checkout -b <branch_name>#创建并修改
@@ -25,16 +25,17 @@ git branch -d/-D <branch_name>#删除
 
 
 ##远程分支仓库操作
+#只能在github，gitlab，gitee，等上面创建和删除仓库
 git remote -v
 git remote 
 git remote remove <remote_name>#删除远程仓库
+git push <remote_name> -delete <branch_name> #delete remote branch
 git remote set-url  <remote_name> <new_repository_url>
 
 ##远程操作
 git remote add <remote_name> <repository_url>
 git pull <remote_name> <branch_name>#拉取并合并
 git push <remote_name> <branch_name>
-git push <remote_name> -delete <branch_name> #delete remote branch
 git fetch <remote_name> <branch_name> #拉取更新，但不合并
 git merge <remote_name>/<branch_name>#手动合并
 
