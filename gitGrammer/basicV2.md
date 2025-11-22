@@ -34,10 +34,11 @@ git branch -d/-D <branch_name>#删除
 git remote -v
 git remote 
 git remote remove <remote_name>#删除远程仓库
-#首先创建本地分支git checkout -b feature
+#首先创建本地分支git checkout -b feature	
 git push origin feature#创建远程分支feature
 git push <remote_name> -delete <branch_name> #delete remote branch
-git remote set-url  <remote_name> <new_repository_url>
+git remote set-url  <remote_name> <new_repository_url>#更改远程仓库别名
+
 
 
 
@@ -61,6 +62,37 @@ git config --global user.email "your_email@example.com"
 ```
 
 
+
+### 其他
+
+```shell
+#克隆特定分支
+1.
+# 格式：git clone -b 分支名 仓库URL
+git clone -b develop https://github.com/username/repository.git
+2.
+#先克隆在切换
+git clone https://github.com/username/repository.git
+cd  repository
+git checkout 目标分支名
+#或者使用更规范的
+git switch 目标分支名
+
+
+
+
+#远程更改本地怎么同步
+git status #检查有没有修改没有提交
+#如果输出 nothing to commit, working tree clean，说明工作区干净，可以继续。
+git pull origin main#拉取远程代码并合并到当前分支
+#origin 是远程仓库的默认别名（可通过 git remote 查看）。
+#main 是远程的目标分支（如果你的远程默认分支是 master，则替换为 master）。
+
+#tip
+#如果提示 “fatal: refusing to merge unrelated histories”
+#如果本地分支和远程分支历史不关联（比如本地是新建仓库，远程已有代码），可添加 --allow-unrelated-histories 强制合并：
+git pull origin main --allow-unrelated-histories
+```
 
 
 
@@ -118,6 +150,8 @@ ssh -T git@github.com #检测，第一次链接，输入yes
 
 ```shell
 git clone <repository_url>
+#在克隆的目录下面会有origin的远程别名
+#此外克隆的时候要使用ssh的地址
 ```
 
 
@@ -128,5 +162,26 @@ git clone <repository_url>
 git init
 git remote add origin https://github.com/username/repository.git
 git pull origin main 
+```
+
+
+
+此外
+
+```shell
+git clone git@github:submergepsc.git：不仅克隆了远程仓库的内容，还会自动将 origin 设置为远程仓库的 URL，并且将本地仓库的默认分支与远程分支关联起来。
+
+git remote add origin git@github:submergepsc.git：仅仅是手动将一个远程仓库地址与本地仓库关联起来，并不会克隆任何内容。适用于你已经有了本地仓库，并希望与远程仓库进行连接的情况。
+
+也就是说，如果使用clone的话会直接克隆仓库，并且创建的origin会在克隆后的本地仓库配置好
+但是使用remote add 的话需要在本地仓库内部使用，不然会将整个仓库作为远程仓库的一个目录（理解）
+```
+
+
+
+tips2
+
+```shell
+git pull 会将已经关闭的窗口（但是有远程连接重新建立联系）#git fetch 做不到
 ```
 
